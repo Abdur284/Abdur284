@@ -1,0 +1,31 @@
+# Bahria Town — conceptual placeholder (NOT official).
+name: "Bahria Town (conceptual)"
+official: false
+notes:
+  - "Conceptual placeholder. Verify with Bahria Town's current building regulations."
+
+setbacks:
+  front_ft: 5
+  rear_ft: 5
+  side_ft: 0
+max_coverage_pct: 80
+max_floors: 2
+
+min_rooms:
+  bedroom:   { w: 11, h: 12, area: 132 }
+  master:    { w: 13, h: 14, area: 182 }
+  bathroom:  { w: 5,  h: 7,  area: 35  }
+  kitchen:   { w: 8,  h: 10, area: 80  }
+  drawing:   { w: 12, h: 14, area: 168 }
+  tv_lounge: { w: 12, h: 13, area: 156 }
+  guest:     { w: 10, h: 12, area: 120 }
+  servant:   { w: 8,  h: 9,  area: 72  }
+  stair:     { w: 8,  h: 10, area: 80  }
+  parking:   { w: 9,  h: 18, area: 162 }
+  corridor:  { w: 3,  h: 3,  area: 9   }
+
+parking:
+  required_when_area_sqft_gte: 900
+  min_cars: 1
+
+circulation_pct: 13

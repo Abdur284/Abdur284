@@ -1,0 +1,37 @@
+# Generic Pakistan Residential — conceptual planning defaults.
+# NOT an official regulation. Always verify against the actual society's
+# current building bylaws before construction.
+name: "Generic Pakistan Residential"
+official: false
+notes:
+  - "Conceptual defaults for 3-10 marla urban plots."
+  - "Verify against the relevant society's current bylaws before construction."
+
+setbacks:
+  front_ft: 5
+  rear_ft: 0
+  side_ft: 0
+
+max_coverage_pct: 85     # of plot area
+max_floors: 2
+
+# Minimum practical room dimensions in feet (width x height).
+min_rooms:
+  bedroom:      { w: 10, h: 10, area: 110 }
+  master:       { w: 12, h: 13, area: 160 }
+  bathroom:     { w: 5,  h: 7,  area: 35  }
+  kitchen:      { w: 8,  h: 10, area: 80  }
+  drawing:      { w: 12, h: 13, area: 160 }
+  tv_lounge:    { w: 12, h: 12, area: 144 }
+  guest:        { w: 10, h: 11, area: 110 }
+  servant:      { w: 8,  h: 9,  area: 72  }
+  stair:        { w: 8,  h: 10, area: 80  }
+  parking:      { w: 9,  h: 18, area: 162 } # one car
+  corridor:     { w: 3,  h: 3,  area: 9   }
+
+parking:
+  required_when_area_sqft_gte: 900   # ≈ 4 marla+
+  min_cars: 1
+
+# Circulation / corridor budget added to interior room area.
+circulation_pct: 12
