@@ -11,11 +11,11 @@ import asyncio
 
 import pytest
 
-from app.api.design import generate as generate_api
-from app.rules.loader import load_rules
-from app.schemas import DesignRequest, PlotDimensions, Requirements
-from app.services import extractor, feasibility, layout as layout_svc
-from app.services.control_image import render_floor_png
+from floor_plan_2d.api import generate as generate_api
+from floor_plan_2d.rules.loader import load_rules
+from floor_plan_2d.schemas import DesignRequest, PlotDimensions, Requirements
+from floor_plan_2d.services import extractor, feasibility, layout as layout_svc
+from floor_plan_2d.services.control_image import render_floor_png
 
 
 def _run(req: DesignRequest):

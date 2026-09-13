@@ -25,12 +25,11 @@ from __future__ import annotations
 
 import base64
 import logging
+import os
 from dataclasses import dataclass
 from typing import Optional, Tuple
 
 import httpx
-
-from ..config import get_settings
 
 log = logging.getLogger(__name__)
 
@@ -62,12 +61,12 @@ async def generate(
     controlnet_scale: float = 1.1,
     seed: int = 1234,
 ) -> SDResult:
-    settings = get_settings()
-    if not settings.sd_controlnet_url:
+    base_url = os.getenv("SD_CONTROLNET_URL", "")
+    if not base_url:
         return SDResult(image_b64=control_image_b64, used_sd=False,
                         stub_reason="SD_CONTROLNET_URL not configured — returning control image as placeholder.")
-
-    url = settings.sd_controlnet_url.rstrip("/") + "/generate"
+    timeout = float(os.getenv("SD_TIMEOUT_SECONDS", "180"))
+    url = base_url.rstrip("/") + "/generate"
     payload = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
@@ -78,7 +77,7 @@ async def generate(
         "seed": seed,
     }
     try:
-        async with httpx.AsyncClient(timeout=settings.sd_timeout_seconds) as client:
+        async with httpx.AsyncClient(timeout=timeout) as client:
             resp = await client.post(url, json=payload)
         if resp.status_code != 200:
             return SDResult(image_b64=control_image_b64, used_sd=False,

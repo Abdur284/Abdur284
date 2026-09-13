@@ -19,9 +19,9 @@ import logging
 
 from fastapi import APIRouter, HTTPException
 
-from ..rules.loader import list_societies, load_rules
-from ..schemas import DesignRequest, DesignResponse, FeasibilityIssue, FeasibilityReport
-from ..services import control_image, extractor, feasibility, layout as layout_svc, sd_client
+from .rules.loader import list_societies, load_rules
+from .schemas import DesignRequest, DesignResponse, FeasibilityIssue, FeasibilityReport
+from .services import control_image, extractor, feasibility, layout as layout_svc, sd_client
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/design", tags=["design"])

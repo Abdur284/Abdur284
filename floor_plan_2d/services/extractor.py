@@ -14,10 +14,10 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 from typing import Optional
 
-from ..config import get_settings
 from ..schemas import PlotDimensions, Requirements
 
 log = logging.getLogger(__name__)
@@ -163,13 +163,13 @@ _GEMINI_SYSTEM = (
 
 
 def gemini_extract(prompt: str, plot: Optional[PlotDimensions], society: str) -> Requirements:
-    settings = get_settings()
-    if not settings.gemini_api_key:
+    api_key = os.getenv("GEMINI_API_KEY", "")
+    if not api_key:
         raise RuntimeError("GEMINI_API_KEY not set")
     import google.generativeai as genai  # local import so the dep is optional
-    genai.configure(api_key=settings.gemini_api_key)
+    genai.configure(api_key=api_key)
     model = genai.GenerativeModel(
-        settings.gemini_model,
+        os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
         system_instruction=_GEMINI_SYSTEM,
         generation_config={"response_mime_type": "application/json"},
     )
@@ -193,8 +193,7 @@ def gemini_extract(prompt: str, plot: Optional[PlotDimensions], society: str) ->
 # --------------------------- Public entry ---------------------------
 
 def extract(prompt: str, plot: Optional[PlotDimensions] = None, society: str = "generic") -> Requirements:
-    settings = get_settings()
-    if settings.gemini_api_key:
+    if os.getenv("GEMINI_API_KEY"):
         try:
             return gemini_extract(prompt, plot, society)
         except MissingDimensionsError:
